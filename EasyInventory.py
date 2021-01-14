@@ -163,7 +163,15 @@ def main():
 
     for count,code in enumerate(location_codes):
         data_core[code.value.strip()][0] += 1
-        data_core[code.value.strip()][1] += actual_quantity[count].value
+
+        # Special case for pallets that are totes holding up to 3000 hot pockets
+        # These are systematically entered as having 96 cases
+        # No pallet has more than 220 cases except for these special tote
+        # pallets
+        if (actual_quantity[count].value > 220):
+            data_core[code.value.strip()][1] += 96
+        else:
+            data_core[code.value.strip()][1] += actual_quantity[count].value
 
     out_book = openpyxl.Workbook()
 
