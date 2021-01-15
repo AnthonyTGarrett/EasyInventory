@@ -48,6 +48,8 @@ I am new to programming so any help is greatly appreciated!
 
  - Write Tests
  - Add support direct editing of main inventory excel file
+ - Change aisle 2 200 side to end at 254 instead of 256
+ - Change aisle 3 100 side to end at 254 instead of 256
 
 License
 ----
