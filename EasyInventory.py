@@ -86,10 +86,59 @@ def create_dictionary(aisle_number):
 #
 #
     #
-    # Aisles 1-3 only have 56 locations on each side
+    # Aisle 1 only has 56 locations on each side
     #
-    if(aisle_number < 4):
+    if(aisle_number == 1):
         locations = generate_inner_dict(aisle_number, 57);
+
+    #
+    # Aisle 2 only has 56 locations on 100 side
+    # and 54 locations on 200 side
+    #
+    elif(aisle_number == 2):
+        for i in range(1, 57):
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-A'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-B'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-C'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-D'] = [0, 0]
+
+        for j in range(1, 55):
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-A'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-B'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-C'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-D'] = [0, 0]
+    #
+    # Aisle 3 only has 54 locations on 100 side
+    # and 56 locations on 200 side
+    #
+    elif(aisle_number == 3):
+        for i in range(1, 55):
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-A'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-B'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-C'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-D'] = [0, 0]
+
+        for j in range(1, 57):
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-A'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-B'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-C'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-D'] = [0, 0]
 
     #
     # Aisle 4 has only have 56 locations the 100 side and 62 locations on the
