@@ -172,29 +172,38 @@ def main():
 
     wb = load_workbook(CLEANED_INPUT_FILENAME)
     sheet = wb.active
+
+    # Deleting the first row which contains headers for the columns
     sheet.delete_rows(1, 1)
 
     # Removing the old file
     os.remove(ORIGINAL_INPUT)
 
+    # Selecting the columns that hold the needed information about each location
     location_codes = sheet['A']
     actual_quantity = sheet['N']
 
-    a = location_codes[0].value.split("-")
+    # Parsing out the aisle number from the location code
+    code_parts = location_codes[0].value.split("-")[0]
 
-    data_core = create_dictionary(int(a[0].strip()))
+    data_core = create_dictionary(int(code_parts))
+
+    # Cleaning excess spaces that are at the beginning of the location codes
+    # in the cells
+    for code in location_codes:
+        code.value = code.value.strip()
 
     for count,code in enumerate(location_codes):
-        data_core[code.value.strip()][0] += 1
+        data_core[code.value][0] += 1
 
         # Special case for pallets that are totes holding up to 3000 hot pockets
         # These are systematically entered as having 96 cases
         # No pallet has more than 220 cases except for these special tote
         # pallets
         if (actual_quantity[count].value > 220):
-            data_core[code.value.strip()][1] += 96
+            data_core[code.value][1] += 96
         else:
-            data_core[code.value.strip()][1] += actual_quantity[count].value
+            data_core[code.value][1] += actual_quantity[count].value
 
     out_book = Workbook()
 
