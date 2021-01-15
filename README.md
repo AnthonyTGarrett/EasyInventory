@@ -47,8 +47,6 @@ I am new to programming so any help is greatly appreciated!
  - Write Tests
  - Add support direct editing of main inventory excel file
  - Add support for aisles 27 and 28
- - Add code to clean the file before beginning so adjustments don't have to be made before running the program
- - Add support that changes tote values to 96
 
 License
 ----
