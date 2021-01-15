@@ -18,6 +18,7 @@ EasyInventory uses a number of open source projects to work properly:
 * [VS Code Editor](https://code.visualstudio.com/) -The Editor
 * [Python](https:/www.python.org/) - The Language
 * [Openpyxl](https://openpyxl.readthedocs.io/en/stable/) - The base library used for excel manipulation
+* [Pyexcel](http://docs.pyexcel.org/en/latest/) - The library for converting file types
 
 
 And of course EasyInventory itself is open source with a [public repository](https://github.com/AnthonyTGarrett/easy_inventory)
