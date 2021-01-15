@@ -4,15 +4,18 @@
 # Small script that will read in inventory location data from one spreadsheet
 # and transfer that data to another spreadsheet
 #
-import openpyxl
+import os
+import pyexcel as pyex
+from openpyxl import Workbook, load_workbook
 
 #
 # Input file name is set to the default file name used by the system that
 #   generates the initial spreadsheet to be parsed
 #
 
-INPUT_FILENAME = 'sqlexec.xlsx'
+ORIGINAL_INPUT = 'sqlexec.xls'
 OUTPUT_FILENAME = 'completed.xlsx'
+CLEANED_INPUT_FILENAME = 'starter.xlsx'
 
 #
 # Helper function to generate the dictionary that will hold the inventory count
@@ -35,16 +38,24 @@ def generate_inner_dict(aisle_number, ending_number):
     locations_data = {};
 
     for i in range(1, ending_number):
-        locations_data[str(aisle_number) + '-' + str((100 + i)) + '-A'] = [0, 0]
-        locations_data[str(aisle_number) + '-' + str((100 + i)) + '-B'] = [0, 0]
-        locations_data[str(aisle_number) + '-' + str((100 + i)) + '-C'] = [0, 0]
-        locations_data[str(aisle_number) + '-' + str((100 + i)) + '-D'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((100 + i)) + '-A'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((100 + i)) + '-B'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((100 + i)) + '-C'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((100 + i)) + '-D'] = [0, 0]
 
     for j in range(1, ending_number):
-        locations_data[str(aisle_number) + '-' + str((200 + j)) + '-A'] = [0, 0]
-        locations_data[str(aisle_number) + '-' + str((200 + j)) + '-B'] = [0, 0]
-        locations_data[str(aisle_number) + '-' + str((200 + j)) + '-C'] = [0, 0]
-        locations_data[str(aisle_number) + '-' + str((200 + j)) + '-D'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((200 + j)) + '-A'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((200 + j)) + '-B'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((200 + j)) + '-C'] = [0, 0]
+        locations_data[str(aisle_number).zfill(2) + '-' +
+                       str((200 + j)) + '-D'] = [0, 0]
 
     return locations_data;
 
@@ -87,18 +98,24 @@ def create_dictionary(aisle_number):
     elif (aisle_number == 4):
 
         for i in range(1, 57):
-            locations[str(aisle_number) + '-' +
+            locations[str(aisle_number).zfill(2) + '-' +
                           str((100 + i)) + '-A'] = [0, 0]
-            locations[str(aisle_number) + '-' + str((100 + i)) + '-B'] = [0, 0]
-            locations[str(aisle_number) + '-' + str((100 + i)) + '-C'] = [0, 0]
-            locations[str(aisle_number) + '-' + str((100 + i)) + '-D'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-B'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-C'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((100 + i)) + '-D'] = [0, 0]
 
         for j in range(1, 63):
-            locations[str(aisle_number) + '-' +
+            locations[str(aisle_number).zfill(2) + '-' +
                           str((200 + j)) + '-A'] = [0, 0]
-            locations[str(aisle_number) + '-' + str((200 + j)) + '-B'] = [0, 0]
-            locations[str(aisle_number) + '-' + str((200 + j)) + '-C'] = [0, 0]
-            locations[str(aisle_number) + '-' + str((200 + j)) + '-D'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-B'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-C'] = [0, 0]
+            locations[str(aisle_number).zfill(2) + '-' +
+                      str((200 + j)) + '-D'] = [0, 0]
 
     #
     # Aisles 5 - 12 have base case locations with 62 on each side
@@ -150,16 +167,22 @@ def create_dictionary(aisle_number):
 
 def main():
 
-    wb = openpyxl.load_workbook(INPUT_FILENAME)
+    # Opening and saving the file as the xlsx format
+    pyex.save_book_as(file_name='sqlexec.xls', dest_file_name='starter.xlsx')
 
+    wb = load_workbook(CLEANED_INPUT_FILENAME)
     sheet = wb.active
+    sheet.delete_rows(1, 1)
+
+    # Removing the old file
+    os.remove(ORIGINAL_INPUT)
 
     location_codes = sheet['A']
     actual_quantity = sheet['N']
 
     a = location_codes[0].value.split("-")
 
-    data_core = create_dictionary(int(a[0]))
+    data_core = create_dictionary(int(a[0].strip()))
 
     for count,code in enumerate(location_codes):
         data_core[code.value.strip()][0] += 1
@@ -173,7 +196,7 @@ def main():
         else:
             data_core[code.value.strip()][1] += actual_quantity[count].value
 
-    out_book = openpyxl.Workbook()
+    out_book = Workbook()
 
     out_sheet = out_book.active
 
