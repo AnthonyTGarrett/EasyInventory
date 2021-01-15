@@ -31,6 +31,7 @@ Install the dependencies and away you go
 
 ```sh
 $ pip install openpyxl
+$ pip install pyexcel pyexcel-xls pyexcel-xlsx
 ```
 
 ### Development

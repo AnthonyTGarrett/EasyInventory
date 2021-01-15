@@ -129,8 +129,7 @@ def create_dictionary(aisle_number):
     elif(aisle_number == 13):
 
         for i in range(1, 63):
-            locations[str(aisle_number) + '-' +
-                          str((100 + i)) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str((100 + i)) + '-A'] = [0, 0]
             locations[str(aisle_number) + '-' + str((100 + i)) + '-B'] = [0, 0]
             locations[str(aisle_number) + '-' + str((100 + i)) + '-C'] = [0, 0]
             locations[str(aisle_number) + '-' + str((100 + i)) + '-D'] = [0, 0]
@@ -151,8 +150,7 @@ def create_dictionary(aisle_number):
             locations[str(aisle_number) + '-' + str((100 + i)) + '-D'] = [0, 0]
 
         for j in range(1, 63):
-            locations[str(aisle_number) + '-' +
-                          str((200 + j)) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str((200 + j)) + '-A'] = [0, 0]
             locations[str(aisle_number) + '-' + str((200 + j)) + '-B'] = [0, 0]
             locations[str(aisle_number) + '-' + str((200 + j)) + '-C'] = [0, 0]
             locations[str(aisle_number) + '-' + str((200 + j)) + '-D'] = [0, 0]
@@ -162,6 +160,41 @@ def create_dictionary(aisle_number):
     #
     elif(aisle_number <= 26):
         locations = generate_inner_dict(aisle_number, 63)
+
+    # Aisle 28 has six levels in parts of it so I need to create the dict
+    # uniquely for this aisle
+    elif(aisle_number == 27):
+        for i in range(1, 19):
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-B'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-C'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-D'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-E'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-F'] = [0, 0]
+        for i in range(19, 119):
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-B'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-C'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-D'] = [0, 0]
+        for i in range(119, 127):
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-B'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-C'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-D'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-E'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-F'] = [0, 0]
+        for i in range(127, 153):
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-B'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-C'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-D'] = [0, 0]
+
+    elif(aisle_number == 28):
+        for i in range(1, 149):
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-A'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-B'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-C'] = [0, 0]
+            locations[str(aisle_number) + '-' + str(i).zfill(3) + '-D'] = [0, 0]
 
     return locations
 
