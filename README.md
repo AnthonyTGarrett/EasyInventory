@@ -48,7 +48,6 @@ I am new to programming so any help is greatly appreciated!
 
  - Write Tests
  - Add support direct editing of main inventory excel file
- - Add support for aisles 27 and 28
 
 License
 ----
