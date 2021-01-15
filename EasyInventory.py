@@ -242,7 +242,7 @@ def main():
 
     out_sheet = out_book.active
 
-    count = [1, 1, 1, 1]
+    count = [1, 1, 1, 1, 1, 1]
 
     for key, value in data_core.items():
         find_level = key.split("-")
@@ -271,6 +271,18 @@ def main():
             out_sheet['N' + str(count[3])] = value[0]
             out_sheet['O' + str(count[3])] = value[1]
             count[3] += 1
+        
+        elif (str(level) == 'E'):
+            out_sheet['P' + str(count[4])] = key
+            out_sheet['Q' + str(count[4])] = value[0]
+            out_sheet['R' + str(count[4])] = value[1]
+            count[4] += 1
+
+        elif (str(level) == 'F'):
+            out_sheet['S' + str(count[5])] = key
+            out_sheet['T' + str(count[5])] = value[0]
+            out_sheet['U' + str(count[5])] = value[1]
+            count[5] += 1
 
 
     out_book.save(OUTPUT_FILENAME)
