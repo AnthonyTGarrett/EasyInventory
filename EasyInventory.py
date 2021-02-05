@@ -141,7 +141,7 @@ def create_dictionary(aisle_number):
                       str((200 + j)) + '-D'] = [0, 0]
 
     #
-    # Aisle 4 has only have 56 locations the 100 side and 62 locations on the
+    # Aisle 4 has only 56 locations on the 100 side and 62 locations on the
     # 200 side
     #
     elif (aisle_number == 4):
@@ -170,7 +170,7 @@ def create_dictionary(aisle_number):
     # Aisles 5 - 12 have base case locations with 62 on each side
     #
     elif(4 < aisle_number < 13):
-        locations = generate_inner_dict(aisle_number, 62)
+        locations = generate_inner_dict(aisle_number, 63)
     
     #
     # Aisle 13 is missing the A levels on the 200 side
