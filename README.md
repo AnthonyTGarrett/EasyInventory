@@ -48,7 +48,6 @@ I am new to programming so any help is greatly appreciated!
 
  - Write Tests
  - Add support direct editing of main inventory excel file
- - Change the number of locations in aisle 28 to 144 from 148
 
 License
 ----
