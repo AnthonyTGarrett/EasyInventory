@@ -299,42 +299,43 @@ def main():
 
         if (str(level) == 'A'):
             out_sheet['A' + str(count[0])] = key
-            out_sheet['B' + str(count[0])] = value[0]
-            out_sheet['C' + str(count[0])] = value[1]
+            out_sheet['B' + str(count[0])] = value[1]
+            out_sheet['C' + str(count[0])] = value[0]
             count[0] += 1
 
         elif (str(level) == 'B'):
             out_sheet['E' + str(count[1])] = key
-            out_sheet['F' + str(count[1])] = value[0]
-            out_sheet['G' + str(count[1])] = value[1]
+            out_sheet['F' + str(count[1])] = value[1]
+            out_sheet['G' + str(count[1])] = value[0]
             count[1] += 1
 
         elif (str(level) == 'C'):
             out_sheet['I' + str(count[2])] = key
-            out_sheet['J' + str(count[2])] = value[0]
-            out_sheet['K' + str(count[2])] = value[1]
+            out_sheet['J' + str(count[2])] = value[1]
+            out_sheet['K' + str(count[2])] = value[0]
             count[2] +=1
 
         elif (str(level) == 'D'):
             out_sheet['M' + str(count[3])] = key
-            out_sheet['N' + str(count[3])] = value[0]
-            out_sheet['O' + str(count[3])] = value[1]
+            out_sheet['N' + str(count[3])] = value[1]
+            out_sheet['O' + str(count[3])] = value[0]
             count[3] += 1
         
         elif (str(level) == 'E'):
             out_sheet['P' + str(count[4])] = key
-            out_sheet['Q' + str(count[4])] = value[0]
-            out_sheet['R' + str(count[4])] = value[1]
+            out_sheet['Q' + str(count[4])] = value[1]
+            out_sheet['R' + str(count[4])] = value[0]
             count[4] += 1
 
         elif (str(level) == 'F'):
             out_sheet['S' + str(count[5])] = key
-            out_sheet['T' + str(count[5])] = value[0]
-            out_sheet['U' + str(count[5])] = value[1]
+            out_sheet['T' + str(count[5])] = value[1]
+            out_sheet['U' + str(count[5])] = value[0]
             count[5] += 1
 
 
     out_book.save(OUTPUT_FILENAME)
+    os.remove(CLEANED_INPUT_FILENAME)
 
 
 

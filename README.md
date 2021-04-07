@@ -8,21 +8,20 @@ EasyInventory is a python based script to extract inventory data from a generate
 
 # New Features!
 
-  - Ability to handle all main aisles inventory reports
-  - Clean and new documentation
+- Ability to handle all main aisles inventory reports
+- Clean and new documentation
 
 ### Requirements
 
 EasyInventory uses a number of open source projects to work properly:
 
-* [VS Code Editor](https://code.visualstudio.com/) -The Editor
-* [Python](https:/www.python.org/) - The Language
-* [Openpyxl](https://openpyxl.readthedocs.io/en/stable/) - The base library used for excel manipulation
-* [Pyexcel](http://docs.pyexcel.org/en/latest/) - The library for converting file types
-
+- [VS Code Editor](https://code.visualstudio.com/) -The Editor
+- [Python](https:/www.python.org/) - The Language
+- [Openpyxl](https://openpyxl.readthedocs.io/en/stable/) - The base library used for excel manipulation
+- [Pyexcel](http://docs.pyexcel.org/en/latest/) - The library for converting file types
 
 And of course EasyInventory itself is open source with a [public repository](https://github.com/AnthonyTGarrett/easy_inventory)
- on GitHub.
+on GitHub.
 
 ### Installation
 
@@ -43,15 +42,11 @@ Want to contribute? Great!
 
 I am new to programming so any help is greatly appreciated!
 
-
 ### Todos
 
- - Write Tests
- - Add support direct editing of main inventory excel file
- - Change Aisle 28 to 144 locations instead of 148
- - Add the deletion of the start file
+- Write Tests
+- Add support direct editing of main inventory excel file
 
-License
-----
+## License
 
 MIT
