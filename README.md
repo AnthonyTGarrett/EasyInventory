@@ -45,7 +45,6 @@ I am new to programming so any help is greatly appreciated!
 ### Todos
 
 - Write Tests
-- Add support direct editing of main inventory excel file
 
 ## License
 
