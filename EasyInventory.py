@@ -5,7 +5,6 @@
 # and transfer that data to another spreadsheet
 #
 import os
-import pyexcel as pyex
 from openpyxl import Workbook, load_workbook
 
 #
@@ -13,9 +12,8 @@ from openpyxl import Workbook, load_workbook
 #   generates the initial spreadsheet to be parsed
 #
 
-ORIGINAL_INPUT = 'sqlexec.xls'
+ORIGINAL_INPUT = 'EXPORT.XLSX'
 OUTPUT_FILENAME = 'completed.xlsx'
-CLEANED_INPUT_FILENAME = 'starter.xlsx'
 
 #
 # Helper function to generate the dictionary that will hold the inventory count
@@ -210,7 +208,7 @@ def create_dictionary(aisle_number):
     elif(aisle_number <= 26):
         locations = generate_inner_dict(aisle_number, 63)
 
-    # Aisle 28 has six levels in parts of it so I need to create the dict
+    # Aisle 27 has six levels in parts of it so I need to create the dict
     # uniquely for this aisle
     elif(aisle_number == 27):
         for i in range(1, 19):
@@ -249,21 +247,15 @@ def create_dictionary(aisle_number):
 
 def main():
 
-    # Opening and saving the file as the xlsx format
-    pyex.save_book_as(file_name='sqlexec.xls', dest_file_name='starter.xlsx')
-
-    wb = load_workbook(CLEANED_INPUT_FILENAME)
+    wb = load_workbook(ORIGINAL_INPUT)
     sheet = wb.active
 
     # Deleting the first row which contains headers for the columns
     sheet.delete_rows(1, 1)
 
-    # Removing the old file
-    os.remove(ORIGINAL_INPUT)
-
     # Selecting the columns that hold the needed information about each location
-    location_codes = sheet['A']
-    actual_quantity = sheet['N']
+    location_codes = sheet['B']
+    actual_quantity = sheet['E']
 
     # Parsing out the aisle number from the location code
     code_parts = location_codes[0].value.split("-")[0]
@@ -322,20 +314,26 @@ def main():
             count[3] += 1
         
         elif (str(level) == 'E'):
-            out_sheet['P' + str(count[4])] = key
-            out_sheet['Q' + str(count[4])] = value[1]
-            out_sheet['R' + str(count[4])] = value[0]
+            out_sheet['Q' + str(count[4])] = key
+            out_sheet['R' + str(count[4])] = value[1]
+            out_sheet['S' + str(count[4])] = value[0]
             count[4] += 1
 
+            if (int(find_level[1]) == 18):
+                count[4] += 1
+
         elif (str(level) == 'F'):
-            out_sheet['S' + str(count[5])] = key
-            out_sheet['T' + str(count[5])] = value[1]
-            out_sheet['U' + str(count[5])] = value[0]
+            out_sheet['U' + str(count[5])] = key
+            out_sheet['V' + str(count[5])] = value[1]
+            out_sheet['W' + str(count[5])] = value[0]
             count[5] += 1
+
+            if (int(find_level[1]) == 18):
+                count[5] += 1
 
 
     out_book.save(OUTPUT_FILENAME)
-    os.remove(CLEANED_INPUT_FILENAME)
+    os.remove(ORIGINAL_INPUT)
 
 
 
