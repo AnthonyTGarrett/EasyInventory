@@ -254,8 +254,8 @@ def main():
     sheet.delete_rows(1, 1)
 
     # Selecting the columns that hold the needed information about each location
-    location_codes = sheet['B']
-    actual_quantity = sheet['E']
+    location_codes = sheet['A']
+    actual_quantity = sheet['D']
 
     # Parsing out the aisle number from the location code
     code_parts = location_codes[0].value.split("-")[0]

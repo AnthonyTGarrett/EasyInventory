@@ -10,6 +10,7 @@ EasyInventory is a python based script to extract inventory data from a generate
 
 - Ability to handle all main aisles inventory reports
 - Clean and new documentation
+- Changed the Excel file layout
 
 ### Requirements
 
@@ -45,6 +46,7 @@ I am new to programming so any help is greatly appreciated!
 ### Todos
 
 - Write Tests
+- Make it able to determine the correct excel columns instead of hard coding them
 
 ## License
 
