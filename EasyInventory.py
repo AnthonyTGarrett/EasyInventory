@@ -227,12 +227,25 @@ def create_dictionary(aisle_number):
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-D"] = [0, 0]
 
     elif aisle_number == 28:
-        for i in range(1, 145):
+        for i in range(1, 65):
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-A"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-B"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-C"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-D"] = [0, 0]
-
+            
+        for i in range(65, 73):
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-A"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-B"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-C"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-D"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-E"] = [0, 0]
+        
+        for i in range(73, 145):
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-A"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-B"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-C"] = [0, 0]
+            locations[str(aisle_number) + "-" + str(i).zfill(3) + "-D"] = [0, 0]
+            
     return locations
 
 
