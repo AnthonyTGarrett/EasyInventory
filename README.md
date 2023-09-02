@@ -46,6 +46,7 @@ I am new to programming so any help is greatly appreciated!
 ### Todos
 
 - Write Tests
+- Correct missing locations and other small discrepancies
 - Make it able to determine the correct excel columns instead of hard coding them
 
 ## License
