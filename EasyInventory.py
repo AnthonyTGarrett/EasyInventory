@@ -28,7 +28,7 @@ OUTPUT_FILENAME = "completed.xlsx"
 #
 
 
-def generate_inner_dict(aisle_number, ending_number):
+def generate_inner_dict(aisle_number, ending_number, aisle_side):
     """
     Returns the default generated dictionary with the given aisle number
     and ending aisle location number.
@@ -37,37 +37,19 @@ def generate_inner_dict(aisle_number, ending_number):
     locations_data = {}
 
     for i in range(1, ending_number):
-        locations_data[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-A"] = [
+        locations_data[str(aisle_number).zfill(2) + "-" + str((aisle_side + i)) + "-A"] = [
             0,
             0,
         ]
-        locations_data[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-B"] = [
+        locations_data[str(aisle_number).zfill(2) + "-" + str((aisle_side + i)) + "-B"] = [
             0,
             0,
         ]
-        locations_data[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-C"] = [
+        locations_data[str(aisle_number).zfill(2) + "-" + str((aisle_side + i)) + "-C"] = [
             0,
             0,
         ]
-        locations_data[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-D"] = [
-            0,
-            0,
-        ]
-
-    for j in range(1, ending_number):
-        locations_data[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-A"] = [
-            0,
-            0,
-        ]
-        locations_data[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-B"] = [
-            0,
-            0,
-        ]
-        locations_data[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-C"] = [
-            0,
-            0,
-        ]
-        locations_data[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-D"] = [
+        locations_data[str(aisle_number).zfill(2) + "-" + str((aisle_side + i)) + "-D"] = [
             0,
             0,
         ]
@@ -111,33 +93,18 @@ def create_dictionary(aisle_number):
     # and 54 locations on 200 side
     #
     elif aisle_number == 2:
-        for i in range(1, 57):
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-A"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-B"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-C"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-D"] = [0, 0]
+        locations.update(generate_inner_dict(2,57, 100))
+        locations.update(generate_inner_dict(2, 55, 200))
 
-        for j in range(1, 55):
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-A"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-B"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-C"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-D"] = [0, 0]
     #
     # Aisle 3 only has 54 locations on 100 side
     # and 56 locations on 200 side
     #
     elif aisle_number == 3:
-        for i in range(1, 55):
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-A"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-B"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-C"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-D"] = [0, 0]
+        
+        locations.update(generate_inner_dict(3,55, 100))
+        locations.update(generate_inner_dict(3, 57, 200))
 
-        for j in range(1, 57):
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-A"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-B"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-C"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-D"] = [0, 0]
 
     #
     # Aisle 4 has only 56 locations on the 100 side and 62 locations on the
