@@ -93,8 +93,8 @@ def create_dictionary(aisle_number):
     # and 54 locations on 200 side
     #
     elif aisle_number == 2:
-        locations.update(generate_inner_dict(2,57, 100))
-        locations.update(generate_inner_dict(2, 55, 200))
+        locations.update(generate_inner_dict(aisle_number,57, 100))
+        locations.update(generate_inner_dict(aisle_number, 55, 200))
 
     #
     # Aisle 3 only has 54 locations on 100 side
@@ -102,8 +102,8 @@ def create_dictionary(aisle_number):
     #
     elif aisle_number == 3:
         
-        locations.update(generate_inner_dict(3,55, 100))
-        locations.update(generate_inner_dict(3, 57, 200))
+        locations.update(generate_inner_dict(aisle_number,55, 100))
+        locations.update(generate_inner_dict(aisle_number, 57, 200))
 
 
     #
@@ -111,23 +111,15 @@ def create_dictionary(aisle_number):
     # 200 side
     #
     elif aisle_number == 4:
-        for i in range(1, 57):
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-A"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-B"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-C"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((100 + i)) + "-D"] = [0, 0]
-
-        for j in range(1, 63):
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-A"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-B"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-C"] = [0, 0]
-            locations[str(aisle_number).zfill(2) + "-" + str((200 + j)) + "-D"] = [0, 0]
+        locations.update(generate_inner_dict(aisle_number,57, 100))
+        locations.update(generate_inner_dict(aisle_number, 63, 200))
 
     #
     # Aisles 5 - 12 have base case locations with 62 on each side
     #
     elif 4 < aisle_number < 13:
-        locations = generate_inner_dict(aisle_number, 63)
+        locations.update(generate_inner_dict(aisle_number, 63, 100))
+        locations.update(generate_inner_dict(aisle_number, 63, 200))
 
     #
     # Aisle 13 is missing the A levels on the 200 side
@@ -163,7 +155,8 @@ def create_dictionary(aisle_number):
     # Aisles 15 - 26 have base case locations with 62 on each side
     #
     elif aisle_number <= 26:
-        locations = generate_inner_dict(aisle_number, 63)
+        locations.update(generate_inner_dict(aisle_number, 63, 100))
+        locations.update(generate_inner_dict(aisle_number, 63, 200))
 
     # Aisle 27 has six levels in parts of it so I need to create the dict
     # uniquely for this aisle
@@ -194,13 +187,13 @@ def create_dictionary(aisle_number):
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-D"] = [0, 0]
 
     elif aisle_number == 28:
-        for i in range(1, 65):
+        for i in range(1, 69):
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-A"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-B"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-C"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-D"] = [0, 0]
             
-        for i in range(65, 73):
+        for i in range(69, 73):
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-A"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-B"] = [0, 0]
             locations[str(aisle_number) + "-" + str(i).zfill(3) + "-C"] = [0, 0]
@@ -226,6 +219,7 @@ def main():
     # Selecting the columns that hold the needed information about each location
     location_codes = sheet["A"]
     actual_quantity = sheet["D"]
+    handling_units = sheet["G"]
 
     # Parsing out the aisle number from the location code
     code_parts = location_codes[0].value.split("-")[0]
@@ -302,7 +296,7 @@ def main():
                 count[5] += 1
 
     out_book.save(OUTPUT_FILENAME)
-    os.remove(ORIGINAL_INPUT)
+    #os.remove(ORIGINAL_INPUT)
 
 
 if __name__ == "__main__":
