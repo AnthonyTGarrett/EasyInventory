@@ -217,6 +217,7 @@ def main():
     code_parts = location_codes[0].value.split("-")[0]
 
     data_core = create_dictionary(int(code_parts))
+    OUTPUT_FILENAME = "Aisle-" + code_parts + "-totals" + ".xlsx"
 
     # Cleaning excess spaces that are at the beginning of the location codes
     # in the cells
