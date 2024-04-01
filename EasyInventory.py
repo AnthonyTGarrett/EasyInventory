@@ -125,11 +125,7 @@ def create_dictionary(aisle_number):
     # Aisle 13 is missing the A levels on the 200 side
     #
     elif aisle_number == 13:
-        for i in range(1, 63):
-            locations[str(aisle_number) + "-" + str((100 + i)) + "-A"] = [0, 0]
-            locations[str(aisle_number) + "-" + str((100 + i)) + "-B"] = [0, 0]
-            locations[str(aisle_number) + "-" + str((100 + i)) + "-C"] = [0, 0]
-            locations[str(aisle_number) + "-" + str((100 + i)) + "-D"] = [0, 0]
+        locations.update(generate_inner_dict(aisle_number, 63, 100))
 
         for j in range(1, 63):
             locations[str(aisle_number) + "-" + str((200 + j)) + "-B"] = [0, 0]
@@ -145,11 +141,7 @@ def create_dictionary(aisle_number):
             locations[str(aisle_number) + "-" + str((100 + i)) + "-C"] = [0, 0]
             locations[str(aisle_number) + "-" + str((100 + i)) + "-D"] = [0, 0]
 
-        for j in range(1, 63):
-            locations[str(aisle_number) + "-" + str((200 + j)) + "-A"] = [0, 0]
-            locations[str(aisle_number) + "-" + str((200 + j)) + "-B"] = [0, 0]
-            locations[str(aisle_number) + "-" + str((200 + j)) + "-C"] = [0, 0]
-            locations[str(aisle_number) + "-" + str((200 + j)) + "-D"] = [0, 0]
+        locations.update(generate_inner_dict(aisle_number, 63, 200))
 
     #
     # Aisles 15 - 26 have base case locations with 62 on each side
@@ -296,7 +288,7 @@ def main():
                 count[5] += 1
 
     out_book.save(OUTPUT_FILENAME)
-    #os.remove(ORIGINAL_INPUT)
+    os.remove(ORIGINAL_INPUT)
 
 
 if __name__ == "__main__":
