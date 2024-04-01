@@ -23,7 +23,7 @@ OUTPUT_FILENAME = "completed.xlsx"
 # The value array is used as [pallet count, case count] and set to 0 for all
 # as the default
 #
-# Input paramenters are the aisle number as an int and the ending location for
+# Input parameters are the aisle number as an int and the ending location for
 # the aisle
 #
 
