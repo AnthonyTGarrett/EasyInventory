@@ -386,7 +386,7 @@ def main():
 
     partial_out_book.save(PARTIAL_OUTPUT_FILENAME)
     out_book.save(OUTPUT_FILENAME)
-    # os.remove(ORIGINAL_INPUT)
+    os.remove(ORIGINAL_INPUT)
 
 
 if __name__ == "__main__":
