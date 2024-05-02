@@ -87,7 +87,8 @@ def create_dictionary(aisle_number):
     # Aisle 1 only has 56 locations on each side
     #
     if aisle_number == 1:
-        locations = generate_inner_dict(aisle_number, 57)
+        locations.update(generate_inner_dict(aisle_number, 57, 100))
+        locations.update(generate_inner_dict(aisle_number, 57, 200))
 
     #
     # Aisle 2 only has 56 locations on 100 side
