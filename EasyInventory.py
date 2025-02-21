@@ -259,6 +259,7 @@ def main():
     # Selecting the columns that hold the needed information about each location
     location_codes = sheet["A"]
     products = sheet["B"]
+    batches = sheet["C"]
     actual_quantity = sheet["D"]
     handling_unit = sheet["G"]
 
@@ -269,7 +270,7 @@ def main():
     for i in range(len(actual_quantity)):
         if actual_quantity[i].value < data_products_dict[int(products[i].value)]:
             partials_list.append(
-                [location_codes[i].value, products[i].value, handling_unit[i].value, actual_quantity[i].value])
+                [location_codes[i].value, products[i].value, batches[i].value, handling_unit[i].value, actual_quantity[i].value])
 
     # Parsing out the aisle number from the location code
     code_parts = location_codes[0].value.split("-")[0]
@@ -360,18 +361,22 @@ def main():
 
     partial_out_sheet["B1"] = "Product"
     partial_out_sheet.column_dimensions['B'].width = 12
+    
+    partial_out_sheet["C1"] = "Batch"
+    partial_out_sheet.column_dimensions['C'].width = 15
 
-    partial_out_sheet["C1"] = "Handling Unit"
-    partial_out_sheet.column_dimensions['C'].width = 20
+    partial_out_sheet["D1"] = "Handling Unit"
+    partial_out_sheet.column_dimensions['D'].width = 20
 
-    partial_out_sheet["D1"] = "Quantity"
-    partial_out_sheet.column_dimensions['D'].width = 9
+    partial_out_sheet["E1"] = "Quantity"
+    partial_out_sheet.column_dimensions['E'].width = 9
 
     for count, partial in enumerate(partials_list, start=2):
         partial_out_sheet["A" + str(count)] = partial[0]
         partial_out_sheet["B" + str(count)] = partial[1]
         partial_out_sheet["C" + str(count)] = partial[2]
         partial_out_sheet["D" + str(count)] = partial[3]
+        partial_out_sheet["E" + str(count)] = partial[4]
 
     for cell in partial_out_sheet['A:A']:
         cell.alignment = Alignment(horizontal="center", vertical="center")
