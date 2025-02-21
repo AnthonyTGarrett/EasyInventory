@@ -4,13 +4,14 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-EasyInventory is a python based script to extract inventory data from a generated excel file, combine the information, and write it to a new file for easy access to the information.
+EasyInventory is a python based script to extract inventory data from a system generated excel file, combine the information, and write it to a new file for easy access to the information.
 
 # New Features!
 
 - Ability to handle all main aisles inventory reports
 - Clean and new documentation
 - Changed the Excel file layout
+- Prints out the partial pallets in each aisle
 
 ### Requirements
 
@@ -46,7 +47,6 @@ I am new to programming so any help is greatly appreciated!
 ### Todos
 
 - Write Tests
-- Correct missing locations and other small discrepancies
 - Make it able to determine the correct excel columns instead of hard coding them
 
 ## License
