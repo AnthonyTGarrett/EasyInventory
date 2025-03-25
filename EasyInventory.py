@@ -5,6 +5,7 @@
 # and transfer that data to another spreadsheet
 #
 import os
+import random
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment
 
@@ -253,6 +254,7 @@ def main():
     wb = load_workbook(ORIGINAL_INPUT)
     sheet = wb.active
 
+
     # Deleting the first row which contains headers for the columns
     sheet.delete_rows(1, 1)
 
@@ -262,6 +264,12 @@ def main():
     batches = sheet["C"]
     actual_quantity = sheet["D"]
     handling_unit = sheet["G"]
+    
+    # Creating a list of the indexes of the number of location codes to randomly select 20 of the location codes.
+    # This will create a sample of 20 pallets from the aisle to counting
+    random_items = list(range(0, len(location_codes), 1))
+    random_choices = random.sample(random_items, k=20)
+    
 
     partials_list = []
 
