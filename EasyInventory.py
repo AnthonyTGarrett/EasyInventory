@@ -5,7 +5,7 @@
 # and transfer that data to another spreadsheet
 #
 import os
-import random
+import random as my_random
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment
 
@@ -268,7 +268,13 @@ def main():
     # Creating a list of the indexes of the number of location codes to randomly select 20 of the location codes.
     # This will create a sample of 20 pallets from the aisle to counting
     random_items = list(range(0, len(location_codes), 1))
-    random_choices = random.sample(random_items, k=20)
+    random_choices = my_random.sample(random_items, k=20)
+    random_list = []
+    
+    for i in random_choices:
+        random_list.append(
+            [location_codes[i].value, products[i].value, batches[i].value, handling_unit[i].value, actual_quantity[i].value]
+        )
     
 
     partials_list = []
@@ -397,7 +403,65 @@ def main():
 
     for cell in partial_out_sheet['D:D']:
         cell.alignment = Alignment(horizontal="center", vertical="center")
+    
+    for cell in partial_out_sheet['E:E']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        
+# 
+# 
+# Random Pallet sample output file setup
+# 
+# 
 
+    random_out_book = Workbook()
+
+    random_out_sheet = random_out_book.active
+
+    aisle_number = location_codes[0].value.split("-")[0]
+    RANDOM_OUTPUT_FILENAME = "Aisle-" + aisle_number + "-samples" + ".xlsx"
+
+    # Setting Up headers for the spreadsheet
+    random_out_sheet["A1"] = "Storage Bin"
+    random_out_sheet.column_dimensions['A'].width = 12
+    random_out_sheet.row_dimensions[1].height = 25
+
+    random_out_sheet["B1"] = "Product"
+    random_out_sheet.column_dimensions['B'].width = 12
+    
+    random_out_sheet["C1"] = "Batch"
+    random_out_sheet.column_dimensions['C'].width = 15
+
+    random_out_sheet["D1"] = "Handling Unit"
+    random_out_sheet.column_dimensions['D'].width = 20
+
+    random_out_sheet["E1"] = "Quantity"
+    random_out_sheet.column_dimensions['E'].width = 9
+
+    for count, random in enumerate(random_list, start=2):
+        random_out_sheet["A" + str(count)] = random[0]
+        random_out_sheet["B" + str(count)] = random[1]
+        random_out_sheet["C" + str(count)] = random[2]
+        random_out_sheet["D" + str(count)] = random[3]
+        random_out_sheet["E" + str(count)] = random[4]
+
+    for cell in random_out_sheet['A:A']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for cell in random_out_sheet['B:B']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for cell in random_out_sheet['C:C']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for cell in random_out_sheet['D:D']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        
+    for cell in random_out_sheet['E:E']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        
+        
+    
+    random_out_book.save(RANDOM_OUTPUT_FILENAME)
     partial_out_book.save(PARTIAL_OUTPUT_FILENAME)
     out_book.save(OUTPUT_FILENAME)
     os.remove(ORIGINAL_INPUT)
