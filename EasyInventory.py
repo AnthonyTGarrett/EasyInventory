@@ -264,6 +264,18 @@ def main():
     batches = sheet["C"]
     actual_quantity = sheet["D"]
     handling_unit = sheet["G"]
+    
+    # Creating a list of the indexes of the number of location codes to randomly select 20 of the location codes.
+    # This will create a sample of 20 pallets from the aisle to counting
+    random_items = list(range(0, len(location_codes), 1))
+    random_choices = my_random.sample(random_items, k=20)
+    random_list = []
+    
+    for i in random_choices:
+        random_list.append(
+            [location_codes[i].value, products[i].value, batches[i].value, handling_unit[i].value, actual_quantity[i].value]
+        )
+    
 
     # Cleaning excess spaces that are at the beginning of the location codes
     # in the cells
