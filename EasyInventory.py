@@ -5,6 +5,7 @@
 # and transfer that data to another spreadsheet
 #
 import os
+import random as my_random
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment
 
@@ -253,14 +254,37 @@ def main():
     wb = load_workbook(ORIGINAL_INPUT)
     sheet = wb.active
 
+
     # Deleting the first row which contains headers for the columns
     sheet.delete_rows(1, 1)
 
     # Selecting the columns that hold the needed information about each location
     location_codes = sheet["A"]
     products = sheet["B"]
+    batches = sheet["C"]
     actual_quantity = sheet["D"]
     handling_unit = sheet["G"]
+
+    # Cleaning excess spaces that are at the beginning of the location codes
+    # in the cells
+    for code in location_codes:
+        code.value = code.value.strip()
+    
+    # Creating a sample of 10 locations per aisle to check the material, batch, and quantities
+    
+    random_locations = []
+    for item in location_codes:
+        random_locations.append(item.value)
+        
+    random_choices = my_random.sample(random_locations, k=10)
+    random_list = []
+    
+    for i,cell in enumerate(location_codes):
+        
+        if cell.value in random_choices:
+            random_list.append(
+                [location_codes[i].value, products[i].value, batches[i].value, handling_unit[i].value, actual_quantity[i].value]
+            )
 
     partials_list = []
 
@@ -269,7 +293,7 @@ def main():
     for i in range(len(actual_quantity)):
         if actual_quantity[i].value < data_products_dict[int(products[i].value)]:
             partials_list.append(
-                [location_codes[i].value, products[i].value, handling_unit[i].value, actual_quantity[i].value])
+                [location_codes[i].value, products[i].value, batches[i].value, handling_unit[i].value, actual_quantity[i].value])
 
     # Parsing out the aisle number from the location code
     code_parts = location_codes[0].value.split("-")[0]
@@ -277,10 +301,7 @@ def main():
     data_core = create_dictionary(int(code_parts))
     OUTPUT_FILENAME = "Aisle-" + code_parts + "-totals" + ".xlsx"
 
-    # Cleaning excess spaces that are at the beginning of the location codes
-    # in the cells
-    for code in location_codes:
-        code.value = code.value.strip()
+    
 
     for count, code in enumerate(location_codes):
         data_core[code.value][0] += 1
@@ -360,18 +381,22 @@ def main():
 
     partial_out_sheet["B1"] = "Product"
     partial_out_sheet.column_dimensions['B'].width = 12
+    
+    partial_out_sheet["C1"] = "Batch"
+    partial_out_sheet.column_dimensions['C'].width = 15
 
-    partial_out_sheet["C1"] = "Handling Unit"
-    partial_out_sheet.column_dimensions['C'].width = 20
+    partial_out_sheet["D1"] = "Handling Unit"
+    partial_out_sheet.column_dimensions['D'].width = 20
 
-    partial_out_sheet["D1"] = "Quantity"
-    partial_out_sheet.column_dimensions['D'].width = 9
+    partial_out_sheet["E1"] = "Quantity"
+    partial_out_sheet.column_dimensions['E'].width = 9
 
     for count, partial in enumerate(partials_list, start=2):
         partial_out_sheet["A" + str(count)] = partial[0]
         partial_out_sheet["B" + str(count)] = partial[1]
         partial_out_sheet["C" + str(count)] = partial[2]
         partial_out_sheet["D" + str(count)] = partial[3]
+        partial_out_sheet["E" + str(count)] = partial[4]
 
     for cell in partial_out_sheet['A:A']:
         cell.alignment = Alignment(horizontal="center", vertical="center")
@@ -384,7 +409,65 @@ def main():
 
     for cell in partial_out_sheet['D:D']:
         cell.alignment = Alignment(horizontal="center", vertical="center")
+    
+    for cell in partial_out_sheet['E:E']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        
+# 
+# 
+# Random Pallet sample output file setup
+# 
+# 
 
+    random_out_book = Workbook()
+
+    random_out_sheet = random_out_book.active
+
+    aisle_number = location_codes[0].value.split("-")[0]
+    RANDOM_OUTPUT_FILENAME = "Aisle-" + aisle_number + "-samples" + ".xlsx"
+
+    # Setting Up headers for the spreadsheet
+    random_out_sheet["A1"] = "Storage Bin"
+    random_out_sheet.column_dimensions['A'].width = 12
+    random_out_sheet.row_dimensions[1].height = 25
+
+    random_out_sheet["B1"] = "Product"
+    random_out_sheet.column_dimensions['B'].width = 12
+    
+    random_out_sheet["C1"] = "Batch"
+    random_out_sheet.column_dimensions['C'].width = 15
+
+    random_out_sheet["D1"] = "Handling Unit"
+    random_out_sheet.column_dimensions['D'].width = 20
+
+    random_out_sheet["E1"] = "Quantity"
+    random_out_sheet.column_dimensions['E'].width = 9
+
+    for count, random in enumerate(random_list, start=2):
+        random_out_sheet["A" + str(count)] = random[0]
+        random_out_sheet["B" + str(count)] = random[1]
+        random_out_sheet["C" + str(count)] = random[2]
+        random_out_sheet["D" + str(count)] = random[3]
+        random_out_sheet["E" + str(count)] = random[4]
+
+    for cell in random_out_sheet['A:A']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for cell in random_out_sheet['B:B']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for cell in random_out_sheet['C:C']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for cell in random_out_sheet['D:D']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        
+    for cell in random_out_sheet['E:E']:
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        
+        
+    
+    random_out_book.save(RANDOM_OUTPUT_FILENAME)
     partial_out_book.save(PARTIAL_OUTPUT_FILENAME)
     out_book.save(OUTPUT_FILENAME)
     os.remove(ORIGINAL_INPUT)
@@ -392,3 +475,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
